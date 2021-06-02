@@ -110,7 +110,7 @@ export default {
         search:null,
         checked:[],
       },
-      theme:null,
+      theme:light,
       pageSize:5,
       offset:0,
       city:'Bangalore',
