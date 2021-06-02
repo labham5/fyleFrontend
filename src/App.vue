@@ -1,32 +1,77 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div id="app" class="light">
+    <router-view @change="changeTheme()"/>
   </div>
 </template>
 
+
+<script>
+export default {
+
+   methods:{
+    changeTheme(){
+      this.trans();
+      const bodyClass = document.getElementById('app').classList;
+      const current = localStorage.getItem('theme');
+      let next;
+      if(current == 'light')
+      {
+        next='dark'
+      }
+      else
+      {
+        next='light'
+      }
+      bodyClass.replace(current, next);
+      localStorage.setItem('theme', next);
+    },
+    trans() {
+        document.documentElement.classList.add('transition');
+        window.setTimeout(() => {
+            document.documentElement.classList.remove('transition')
+        }, 500)
+    }
+  },
+  mounted()
+     {
+        const bodyClass = document.getElementById('app').classList;
+        const current = localStorage.getItem('theme');
+        if(current != 'light')
+        {
+          bodyClass.replace('light',current)
+        }
+     },
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+:root{
+  --bg: #FCFCFC;
+  --bg-panel: #EBEBEB;
+  --color-headings: #ff8533;
+  --color-text: #333333;
+  --inverse: #333333;
 }
 
-#nav {
-  padding: 30px;
+.dark {
+  --bg: #333333;
+  --bg-panel: #434343;
+  --color-headings: #ff8533;
+  --color-text: #B5B5B5;
+  --inverse: #FCFCFC;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.white {
+  --bg: #FCFCFC;
+  --bg-panel: #EBEBEB;
+  --color-headings: #3694FF;
+  --color-text: #333333;
+  --inverse: #020202;
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+html.transition,
+html.transition *,
+html.transition *:before,
+html.transition *:after {
+  transition: all 750ms !important;
+  transition-delay: 0 !important;
 }
 </style>
