@@ -110,7 +110,7 @@ export default {
         search:null,
         checked:[],
       },
-      theme:light,
+      theme:null,
       pageSize:5,
       offset:0,
       city:'Bangalore',
@@ -122,7 +122,7 @@ export default {
   computed:{
     icon()
     {
-      if(this.theme == 'light')
+      if(this.theme == 'light' || this.theme == null || this.theme == undefined)
       {
         return 'moon';
       }
@@ -133,7 +133,7 @@ export default {
     },
     dropdownTheme()
     {
-      if(this.theme == 'light')
+      if(this.theme == 'light' || this.theme == null || this.theme == undefined)
       {
         return 'light';
       }
@@ -144,7 +144,7 @@ export default {
     },
     tableColor()
     {
-      if(this.theme == 'light')
+      if(this.theme == 'light' || this.theme == null || this.theme == undefined)
       {
         return false;
       }
@@ -170,21 +170,11 @@ export default {
   methods:{
     markAsFavourite()
     {
-      // var items=JSON.parse(localStorage.getItem('favourites'))
-      // if( items== undefined ||items ==null || items.length <1 )
-      // {
-      //   localStorage.setItem('favourites',JSON.stringify(this.form.checked));
-      // } 
-      // else
-      // {
-        localStorage.setItem('favourites',JSON.stringify(this.form.checked));
-        // console.log("ELse");
-      // }
+      localStorage.setItem('favourites',JSON.stringify(this.form.checked));
     },
     changeTheme()
     {
       this.theme == 'light'?this.theme='dark':this.theme='light'
-
       this.$emit('change')
     },
     searchTable()
